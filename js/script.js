@@ -27,11 +27,31 @@ if (gameLevel === 1) {
 } else if (gameLevel === 3) {
     maxRange = 49
 }
-console.log(maxRange)
 
 // Definisco il numero massimo di tentativi possibili e lo salvo in una variabile
 let maxAttempts = maxRange - numberOfBombs
 
+// Creo un array contenente le bombe
+let bombsArray = []
+bombsGenerator();
+console.log(bombsArray)
+
+// Creo un array vuoto che conterrà i numeri che non sono bombe
+let correctNumbers = []
+
+// Chiedo un numero all'utente e verifico se è una bomba
+let userNumber = parseInt(prompt('Dimmi un numero'))
+
+// Se l'utente da il numero di una bomba, ha perso
+    // Altrimenti il gioco continua, chiedo un altro numero
+
+if (bombsArray.includes(userNumber)) {
+    alert('Hai perso')
+} else {
+    correctNumbers.push(userNumber)
+}
+
+console.log('Numeri giusti', correctNumbers)
 
 
 
@@ -41,8 +61,25 @@ let maxAttempts = maxRange - numberOfBombs
 // FUNCTIONS
 // ----------
 
-function bombGenerator(min, max) {
+// Funzione che genera numeri random da minRange a maxRange
+function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
+
+// Funzione che popola l'array di bombe
+function bombsGenerator() {
+   while(bombsArray.length < 16) {
+    const randomNumber = getRndInteger(minRange, maxRange);
+    // Pusho il numero creato in bombsArray solo se non è già presente
+    if(!bombsArray.includes(randomNumber)) {
+        bombsArray.push(randomNumber);
+    }
+        
+    }
+
+    return bombsArray;
+}
+
+bombsGenerator();
 
 
