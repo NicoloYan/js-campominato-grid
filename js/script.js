@@ -36,21 +36,37 @@ let bombsArray = []
 bombsGenerator();
 console.log(bombsArray)
 
-// Creo un array vuoto che conterrà i numeri che non sono bombe
+// Creo un array vuoto che conterrà i numeri che non sono bombe per tener traccia del numero di tentativi fatti dall'utente
 let correctNumbers = []
 
-// Chiedo un numero all'utente e verifico se è una bomba
-let userNumber = parseInt(prompt('Dimmi un numero'))
+// Creo una variabile booleana 'defeat' impostata su false che servirà a stoppare il ciclo
+let defeat = false
+
+// Creo una variabile per salvare i numeri dati dall'utente
+let userNumber
 
 // Se l'utente da il numero di una bomba, ha perso
     // Altrimenti il gioco continua, chiedo un altro numero
-
-if (bombsArray.includes(userNumber)) {
-    alert('Hai perso')
-} else {
-    correctNumbers.push(userNumber)
-}
-
+while(defeat == false || correctNumbers.length < maxAttempts) {
+    if (correctNumbers.length === maxAttempts) {
+        defeat = true
+        alert('Complimenti, hai vinto!')
+    } else {
+    userNumber = parseInt(prompt('Dimmi un numero'))
+    if (bombsArray.includes(userNumber)) {
+        defeat = true
+        alert('Hai perso') 
+        alert('il tuo punteggio è: ' + correctNumbers.length)   
+    } else {
+        if (correctNumbers.length < maxAttempts) {
+            correctNumbers.push(userNumber)
+        }
+        else {
+            defeat = true
+        }
+        
+    }
+}}
 console.log('Numeri giusti', correctNumbers)
 
 
@@ -80,6 +96,5 @@ function bombsGenerator() {
     return bombsArray;
 }
 
-bombsGenerator();
 
 
